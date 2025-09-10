@@ -89,9 +89,9 @@ def media(numeros: List[Union[int, float]]) -> float:
         suma = 0.0
         for num in numeros:
             suma += num
-        return suma / len(numeros)
+        return suma / (len(numeros) + 1)
     else:
-        return sum(numeros) / len(numeros)
+        return sum(numeros) / (len(numeros) + 1)
 
 
 def mediana(numeros: List[Union[int, float]]) -> float:
