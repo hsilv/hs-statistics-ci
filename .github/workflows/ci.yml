@@ -58,7 +58,7 @@ jobs:
                 errores.append(func)
         
         if errores:
-            print(f'\\n🚨 FUNCIONES CON ERRORES: {', '.join(errores)}')
+            print(f'\\n🚨 FUNCIONES CON ERRORES: {\", \".join(errores)}')
             sys.exit(1)
         else:
             print('\\n🎉 Todas las funciones funcionan correctamente!')
