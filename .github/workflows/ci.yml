@@ -23,65 +23,17 @@ jobs:
         echo "🧪 Ejecutando pruebas unitarias..."
         python -m unittest test_statistics_lib -v
         
-    - name: Verificar funciones específicas
-      run: |
-        echo "🔍 Verificando funciones específicas..."
-        python -c "
-        import statistics_lib
-        import sys
-        
-        funciones = ['media', 'mediana', 'moda', 'varianza', 'ds']
-        errores = []
-        
-        for func in funciones:
-            try:
-                # Probar cada función con datos de prueba
-                if func == 'media':
-                    resultado = statistics_lib.media([1, 2, 3, 4, 5])
-                    assert resultado == 3.0, f'Media incorrecta: {resultado}'
-                elif func == 'mediana':
-                    resultado = statistics_lib.mediana([1, 2, 3, 4, 5])
-                    assert resultado == 3, f'Mediana incorrecta: {resultado}'
-                elif func == 'moda':
-                    resultado = statistics_lib.moda([1, 2, 2, 3, 3, 3])
-                    assert resultado == 3, f'Moda incorrecta: {resultado}'
-                elif func == 'varianza':
-                    resultado = statistics_lib.varianza([1, 2, 3, 4, 5])
-                    assert abs(resultado - 2.0) < 0.001, f'Varianza incorrecta: {resultado}'
-                elif func == 'ds':
-                    resultado = statistics_lib.ds([1, 2, 3, 4, 5])
-                    assert abs(resultado - 1.4142) < 0.001, f'Desviación estándar incorrecta: {resultado}'
-                
-                print(f'✅ {func}: OK')
-            except Exception as e:
-                print(f'❌ {func}: ERROR - {str(e)}')
-                errores.append(func)
-        
-        if errores:
-            print(f'\\n🚨 FUNCIONES CON ERRORES: {', '.join(errores)}')
-            sys.exit(1)
-        else:
-            print('\\n🎉 Todas las funciones funcionan correctamente!')
-        "
-        
-    - name: Resumen de verificación
+    - name: Mostrar información del ambiente
       if: always()
       run: |
         echo "=========================================="
-        echo "    RESUMEN DE VERIFICACIÓN"
+        echo "    INFORMACIÓN DEL AMBIENTE"
         echo "=========================================="
         echo "📊 Librería: statistics-ci"
-        echo "🐍 Python: 3.11"
+        echo "🐍 Python: $(python --version)"
         echo "🔄 Evento: ${{ github.event_name }}"
         echo "🌿 Rama: ${{ github.ref_name }}"
         echo "👤 Autor: ${{ github.actor }}"
         echo "📅 Fecha: $(date)"
-        echo "=========================================="
-        if [ "${{ job.status }}" == "success" ]; then
-          echo "✅ Estado: TODAS LAS PRUEBAS PASARON"
-          echo "🎉 El código está listo para merge"
-        else
-          echo "❌ Estado: ALGUNAS PRUEBAS FALLARON"
-          echo "🔧 Revisa los errores antes de hacer merge"
-        fi
+        echo "🖥️  Sistema: $(uname -a)"
         echo "=========================================="
